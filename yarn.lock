@@ -2030,7 +2030,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@ngrx/signals@^18.0.0-rc.2":
+"@ngrx/signals@18.0.0-rc.2":
   version "18.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/@ngrx/signals/-/signals-18.0.0-rc.2.tgz#4dafc5a3aa1e84637f06644f6bf3afbd2e35ee4e"
   integrity sha512-KFj0I5seMVVqqXaoBqeQiR/+dKho4n+Ry/RmaAfa3f0rgYhfaxNTo7U39B7udIYjJf8Z+eYPmBFJEU3HGQU0mA==
