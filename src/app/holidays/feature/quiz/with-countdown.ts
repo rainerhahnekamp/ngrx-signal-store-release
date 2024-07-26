@@ -14,19 +14,19 @@ export function withCountdown() {
   return signalStoreFeature(
     { state: type<{ timeInSeconds: number }>() },
     withState({
-      timeStarted: new Date(),
+      _timeStarted: new Date(),
       timeLeft: 180,
     }),
     withMethods((store) => {
       return {
-        updateTimeLeft: rxMethod<unknown>(
+        _updateTimeLeft: rxMethod<unknown>(
           pipe(
             tap(() => {
               patchState(store, {
                 timeLeft:
                   store.timeInSeconds() -
                   Math.floor(
-                    (new Date().getTime() - store.timeStarted().getTime()) /
+                    (new Date().getTime() - store._timeStarted().getTime()) /
                       1000,
                   ),
               });
@@ -38,7 +38,7 @@ export function withCountdown() {
     withHooks((store) => {
       return {
         onInit() {
-          store.updateTimeLeft(interval(1000));
+          store._updateTimeLeft(interval(1000));
         },
       };
     }),

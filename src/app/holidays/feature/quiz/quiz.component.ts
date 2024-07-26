@@ -8,6 +8,7 @@ import {
   MatCardHeader,
 } from '@angular/material/card';
 import { QuizStore } from '@app/holidays/feature/quiz/quiz-store';
+import { watchState } from '@ngrx/signals';
 
 /**
  * Clock
@@ -92,5 +93,15 @@ export class QuizComponent {
 
   constructor() {
     this.quizStore.load(this.id);
+
+    let currentStable = false;
+    watchState(this.quizStore, () => {
+      const stable = this.quizStore.stable();
+      if (stable === currentStable) {
+        return;
+      }
+      currentStable = stable;
+      console.log(`Stable change: ${stable}`);
+    });
   }
 }

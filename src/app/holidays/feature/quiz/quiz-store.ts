@@ -22,11 +22,11 @@ export const QuizStore = signalStore(
     title: '',
     questions: new Array<Question>(),
     timeInSeconds: 180,
+    stable: true,
   }),
   withCountdown(),
   withMethods((store) => {
     const quizService = inject(QuizService);
-
     return {
       load: rxMethod<number>(
         pipe(
@@ -40,10 +40,12 @@ export const QuizStore = signalStore(
         ),
       ),
       answer(questionId: number, choiceId: number) {
+        patchState(store, { stable: false });
         const question = store
           .questions()
           .find((question) => question.id === questionId);
         assertDefined(question);
+        patchState(store, { stable: true });
         patchState(store, {
           questions: store.questions().map((question) => {
             if (question.id === questionId) {
